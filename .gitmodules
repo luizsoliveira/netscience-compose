@@ -7,3 +7,6 @@
 [submodule "app/websocket"]
 	path = app/websocket
 	url = https://github.com/luizsoliveira/netscience-websocket
+[submodule "nodes/cyberdefense"]
+	path = nodes/cyberdefense
+	url = https://github.com/luizsoliveira/netscience-cyberdefense
