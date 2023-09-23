@@ -1,0 +1,9 @@
+[submodule "app/admin"]
+	path = app/admin
+	url = https://github.com/luizsoliveira/netscience-admin
+[submodule "app/api"]
+	path = app/api
+	url = https://github.com/luizsoliveira/netscience-api
+[submodule "app/websocket"]
+	path = app/websocket
+	url = https://github.com/luizsoliveira/netscience-websocket
