@@ -1,6 +1,14 @@
 # netscience-compose
 Docker compose IaC for all Netscience modules
 
+## Services
+* Admin interface at: http://localhost:7000/
+* REST API at: http://localhost:7001/
+* Websocket at: http://localhost:7002/
+* Swagger at: http://localhost:7880/
+* PgAdmin at: http://localhost:7500/
+* Postgres at: localhost:7432
+
 
 ## Git Submodules
 * App Submodules
