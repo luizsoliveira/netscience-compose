@@ -1,0 +1,9 @@
+[submodule "app/api"]
+	path = app/api
+	url = https://github.com/luizsoliveira/netscience-api
+[submodule "app/websocket"]
+	path = app/websocket
+	url = https://github.com/luizsoliveira/netsicience-websocket
+[submodule "nodes/cyberdefense"]
+	path = nodes/cyberdefense
+	url = https://github.com/luizsoliveira/netscience-cyberdefense

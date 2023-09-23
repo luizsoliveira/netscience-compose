@@ -1,0 +1,89 @@
+version: "3.8"
+services:
+  react-admin:
+    container_name: react-admin-dev
+    build:
+      context: .
+      target: development
+      dockerfile: dockerfiles/react-admin-dev
+    volumes:
+      - ./app/admin:/app/admin
+      - /app/admin/node_modules
+    ports:
+      - 7000:5173
+
+  websocket:
+    container_name: websocket-dev
+    build:
+      context: .
+      target: development
+      dockerfile: dockerfiles/websocket-dev
+    volumes:
+      - ./app/websocket:/app/
+      - /app/node_modules
+    ports:
+      - 7002:3000
+
+  postgrest:
+    image: postgrest/postgrest
+    ports:
+      - "7001:3000"
+    environment:
+      # String DB connection used by PostgREST to connect to postgres
+      PGRST_DB_URI: ${PGRST_DB_URI}
+      # Address were the OpenAPI will be served
+      PGRST_OPENAPI_SERVER_PROXY_URI: $PGRST_OPENAPI_SERVER_PROXY_URI
+      # DB role that will be used for public API access
+      PGRST_DB_ANON_ROLE: ${PGRST_DB_ANON_ROLE}
+      # List with one or more schemas that will be served as API by PostgREST
+      PGRST_DB_SCHEMAS: ${PGRST_DB_SCHEMAS}
+      #JWT secret that will be read by the Posgrest application
+      PGRST_JWT_SECRET: ${PGRST_JWT_SECRET}
+      #JWT secret that will be read by stored procedures with the database
+      PGRST_APP_SETTINGS_JWT_SECRET: ${PGRST_JWT_SECRET}
+    depends_on:
+      - postgres
+    volumes:
+      - "./app/api/config/timezone:/etc/timezone:ro"
+  
+  postgres:
+    image: postgres:14.1-alpine
+    ports:
+      - "7432:5432"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - "./app/api/config/timezone:/etc/timezone:ro"
+      - pgdata_volume:/var/lib/postgresql/data
+      # Script with initial data to be executed just in the first boot
+      - ./app/api/sql/:/docker-entrypoint-initdb.d/
+
+  swagger:
+    image: swaggerapi/swagger-ui
+    ports:
+      - "7080:8080"
+    depends_on:
+      - postgres
+    environment:
+      # Connection from Swagger to PostgREST OpenAPI endpoint
+      API_URL: http://localhost:7001/
+    
+  pgadmin:
+    image: dpage/pgadmin4:7
+    ports:
+      - "7500:5000"
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
+      - PGADMIN_LISTEN_PORT=5000
+    volumes:
+      - "./app/api/data/pgadmin:/var/lib/pgadmin"
+      - "./app/api/config/timezone:/etc/timezone:ro"
+    restart: always
+
+
+volumes:
+  pgdata_volume:
+    driver: local
