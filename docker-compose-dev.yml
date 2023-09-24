@@ -7,6 +7,7 @@ services:
     volumes:
       - ./app/admin:/app/admin
       - /app/admin/node_modules
+      - "./app/api/config/timezone:/etc/timezone:ro"
     ports:
       - 7000:5173
 
@@ -17,6 +18,7 @@ services:
     volumes:
       - ./app/websocket:/app/
       - /app/node_modules
+      - "./app/api/config/timezone:/etc/timezone:ro"
     ports:
       - 7002:3000
 
