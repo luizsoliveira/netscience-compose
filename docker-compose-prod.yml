@@ -100,7 +100,7 @@ services:
     environment:
       - NGINX_HOST=localhost
       #- NGINX_HOST=ensc-cnl-15.engineering.sfu.ca
-      - REACT_ADMIN_HOST=react-admin:7000
+      - REACT_ADMIN_HOST=react-admin:80
       - POSTGREST_HOST=postgrest:3000
       - WEBSOCKET_HOST=websocket:3000
       - NGINX_PORT=80
@@ -121,7 +121,7 @@ services:
       - "./nodes/cyberdefense:/usr/src/app"
       - cache_volume:/var/cache
       - tasks_volume:/var/tasks
-    #command: "sleep +5 ; ls ; python example_netscience.py"
+    command: "python -u entrypoint.py"
     #tty: true
     restart: "no" 
 
