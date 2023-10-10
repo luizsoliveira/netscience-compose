@@ -1,0 +1,62 @@
+server {
+    listen      ${NGINX_PORT};
+    listen      [::]:${NGINX_PORT};
+    server_name ${NGINX_HOST};
+
+    # to allow upload of big files
+    client_max_body_size        64M;
+    client_body_buffer_size     32k;
+    client_header_buffer_size    1M;
+    large_client_header_buffers 8 256k;
+    
+    proxy_buffer_size          128k;
+    proxy_buffers              8 256k;
+    proxy_busy_buffers_size    1M;
+
+    location = /cnl {
+        rewrite ^ /cnl/ permanent;
+    }
+
+    # reverse proxy
+    #location /cnl/ {
+    location ^~ /cnl/ {
+        default_type  application/json;
+        proxy_hide_header Content-Location;
+        add_header Content-Location  /cnl/$upstream_http_content_location;
+        proxy_set_header  Connection "";
+        proxy_pass http://${REACT_ADMIN_HOST}/cnl/;
+        proxy_redirect off;
+    }
+
+    location ^~ /api/ {
+        #include    nginxconfig.io/proxy.conf;
+        
+        default_type  application/json;
+        proxy_hide_header Content-Location;
+        add_header Content-Location  /api/$upstream_http_content_location;
+        proxy_set_header  Connection "";
+        proxy_pass http://${POSTGREST_HOST}/;
+        proxy_redirect off;
+    }
+
+    location ^~ /websocket/ {
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $host;
+        proxy_pass http://${WEBSOCKET_HOST};
+
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+
+    location /socket.io/ {
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header Host $host;
+
+      proxy_pass http://${WEBSOCKET_HOST};
+
+      proxy_http_version 1.1;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection "upgrade";
+    }
+}
