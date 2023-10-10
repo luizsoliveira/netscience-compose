@@ -2,8 +2,7 @@ version: "3.8"
 services:
   react-admin:
     build:
-      target: development
-      dockerfile: dockerfiles/react-admin-dev
+      dockerfile: dockerfiles/prod/react-admin-prod
     environment:
       API_BASE_URL: "/api"
       WS_BASE_URL: "/websocket"
@@ -11,8 +10,9 @@ services:
       - ./app/admin:/app/admin
       - /app/admin/node_modules
       - "./config/timezone:/etc/timezone:ro"
-    ports:
-      - 7000:7000
+    command: "npm run build"
+    # ports:
+    #   - 7000:7000
     # profiles:
     #   - donotstart
 
@@ -94,7 +94,8 @@ services:
       # - react-admin
       - websocket
     volumes:
-      - "./config/nginx/development.conf.template:/etc/nginx/templates/default.conf.template"
+      - "./app/admin/dist:/app/admin"
+      - "./config/nginx/production.conf.template:/etc/nginx/templates/default.conf.template"
       - "./config/timezone:/etc/timezone:ro"
     environment:
       - NGINX_HOST=localhost
