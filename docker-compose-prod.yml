@@ -137,3 +137,11 @@ volumes:
     driver: local
   ws_node_modules_volume:
     driver: local
+
+networks:
+  default:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet:  10.15.0.0/16
