@@ -8,7 +8,7 @@ services:
       WS_BASE_URL: "/websocket"
     volumes:
       - ./app/admin:/app/admin
-      - /app/admin/node_modules
+      - admin_node_modules_volume:/app/admin/node_modules
       - "./config/timezone:/etc/timezone:ro"
     command: "npm run build"
     # ports:
@@ -22,8 +22,8 @@ services:
       dockerfile: dockerfiles/websocket-dev
     volumes:
       - ./app/websocket:/app/
-      - /app/node_modules
-      - netscience_tasks_volume:/var/tasks
+      - ws_node_modules_volume:/app/node_modules
+      - tasks_volume:/var/tasks
       - "./config/timezone:/etc/timezone:ro"
     ports:
       - 7002:3000
@@ -119,8 +119,8 @@ services:
     stdin_open: true
     volumes:
       - "./nodes/cyberdefense:/usr/src/app"
-      - netscience_cache_volume:/var/cache
-      - netscience_tasks_volume:/var/tasks
+      - cache_volume:/var/cache
+      - tasks_volume:/var/tasks
     #command: "sleep +5 ; ls ; python example_netscience.py"
     #tty: true
     restart: "no" 
@@ -129,7 +129,11 @@ services:
 volumes:
   pgdata_volume:
     driver: local
-  netscience_cache_volume:
+  cache_volume:
     driver: local
-  netscience_tasks_volume:
+  tasks_volume:
+    driver: local
+  admin_node_modules_volume:
+    driver: local
+  ws_node_modules_volume:
     driver: local
