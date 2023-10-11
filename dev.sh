@@ -53,7 +53,6 @@ case "$1" in
     update)
         Stop;
         Update;
-        Start
     ;;
 
     *)
