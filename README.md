@@ -7,14 +7,18 @@ cd /opt
 sudo git clone --recurse-submodules https://github.com/luizsoliveira/netscience-compose
 cd netscience-compose/
 git config --global --add safe.directory /opt/netscience-compose
-cp netscience.service /etc/systemd/system/netscience.service
-systemctl enable netscience
 ```
 
 ## Version update
 ```bash
 cd /opt/netscience-compose/
 git pull --recurse-submodules
+```
+
+## Turning netscience a system service (just for production environments)
+```bash
+cp /opt/netscience-compose/netscience.service /etc/systemd/system/netscience.service
+systemctl enable netscience
 ```
 
 ## Services
