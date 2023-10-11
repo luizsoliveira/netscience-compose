@@ -7,7 +7,10 @@ Type=simple
 Restart=always
 RestartSec=1
 User=root
-ExecStart=/opt/netscience-compose/prod.sh start > /var/log/netscience.log
+ExecStart=/opt/netscience-compose/prod.sh start
 ExecStop=/opt/netscience-compose/prod.sh stop
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=netscience
 [Install]
 WantedBy=multi-user.target
