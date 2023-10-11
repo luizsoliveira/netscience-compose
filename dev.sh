@@ -27,7 +27,7 @@ Status() {
 Update() {
     echo "Updating the source code";
     cd $SCRIPTPATH
-    git pull
+    git pull --recurse-submodules
 }
 
 case "$1" in
