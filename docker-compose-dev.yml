@@ -83,7 +83,7 @@ services:
       - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
       - PGADMIN_LISTEN_PORT=5000
     volumes:
-      - "./app/api/data/pgadmin:/var/lib/pgadmin"
+      - pgadmin_volume:/var/lib/pgadmin
       - "./config/timezone:/etc/timezone:ro"
     restart: always
 
@@ -129,6 +129,8 @@ services:
 
 volumes:
   pgdata_volume:
+    driver: local
+  pgadmin_volume:
     driver: local
   cache_volume:
     driver: local
