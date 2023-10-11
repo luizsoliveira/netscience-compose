@@ -49,5 +49,9 @@ tee  ./daemon.json << END
 }
 END
 
+echo "# Adding group docker"
+sudo groupadd docker
+sudo usermod -aG docker loa10
+
 
 
