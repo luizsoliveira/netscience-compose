@@ -7,7 +7,7 @@ Type=simple
 Restart=always
 RestartSec=1
 User=root
-ExecStart=/opt/netscience-compose/prod.sh start
+ExecStart=/opt/netscience-compose/prod.sh start > /var/log/netscience.log
 ExecStop=/opt/netscience-compose/prod.sh stop
 [Install]
 WantedBy=multi-user.target
