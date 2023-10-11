@@ -1,6 +1,22 @@
 # netscience-compose
 Docker compose IaC for all Netscience modules
 
+## Install
+```bash
+cd /opt
+sudo git clone --recurse-submodules https://github.com/luizsoliveira/netscience-compose
+cd netscience-compose/
+git config --global --add safe.directory /opt/netscience-compose
+cp netscience.service /etc/systemd/system/netscience.service
+systemctl enable netscience
+```
+
+## Version update
+```bash
+cd /opt/netscience-compose/
+git pull --recurse-submodules
+```
+
 ## Services
 * Admin interface at: http://localhost:7000/
 * REST API at: http://localhost:7001/
