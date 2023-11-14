@@ -23,7 +23,7 @@ services:
     volumes:
       - ./app/websocket:/app/
       - ws_node_modules_volume:/app/node_modules
-      - tasks_volume:/var/tasks
+      - /var/tasks:/var/tasks
       - "./config/timezone:/etc/timezone:ro"
     ports:
       - 7002:3000
@@ -111,19 +111,19 @@ services:
       always
 
 
-  node-cyberdefense:
-    build:
-      context: ./
-      #dockerfile: dockerfiles/cyberdefense-dev
-      dockerfile: dockerfiles/cyberdefense
-    stdin_open: true
-    volumes:
-      - "./nodes/cyberdefense:/usr/src/app"
-      - cache_volume:/var/cache
-      - tasks_volume:/var/tasks
-    command: "python -u entrypoint.py"
-    #tty: true
-    restart: "no" 
+  # node-cyberdefense:
+  #   build:
+  #     context: ./
+  #     #dockerfile: dockerfiles/cyberdefense-dev
+  #     dockerfile: dockerfiles/cyberdefense
+  #   stdin_open: true
+  #   volumes:
+  #     - "./nodes/cyberdefense:/usr/src/app"
+  #     - cache_volume:/var/cache
+  #     - tasks_volume:/var/tasks
+  #   command: "python -u entrypoint.py"
+  #   #tty: true
+  #   restart: "no" 
 
 
 volumes:
@@ -132,8 +132,6 @@ volumes:
   pgadmin_volume:
     driver: local
   cache_volume:
-    driver: local
-  tasks_volume:
     driver: local
   admin_node_modules_volume:
     driver: local
