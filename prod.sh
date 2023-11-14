@@ -15,6 +15,8 @@ Stop() {
 Start() {
     echo "Generating the React Admin JS bundle.";
     docker compose --env-file $SCRIPTPATH/.env.production -f $SCRIPTPATH/docker-compose-prod.yml build react-admin --no-cache
+    echo "Updating dependencies of Websocket container";
+    docker compose --env-file $SCRIPTPATH/.env.production -f $SCRIPTPATH/docker-compose-prod.yml build websocket --no-cache
     echo "Starting netscience service.";
     docker compose --env-file $SCRIPTPATH/.env.production -f $SCRIPTPATH/docker-compose-prod.yml up;
     echo "Started.";
