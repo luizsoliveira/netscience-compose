@@ -32,13 +32,10 @@ echo \
 echo "# Updating repositories lists"
 apt-get update
 
-
-VERSION_STRING=5:24.0.6-1~ubuntu.22.04~jammy
-echo "# Installing Docker version="$VERSION_STRING
-sudo apt-get install docker-ce=$VERSION_STRING docker-ce-cli=$VERSION_STRING containerd.io docker-compose-plugin
-
-echo "Creating /etc/docker/daemon.json"
-tee  ./daemon.json << END
+echo "# Doing IP configuration before install/start docker damon to avoid IP conflict with SFU VPN"
+echo "#Creating /etc/docker/daemon.json"
+mkdir /etc/docker
+tee  /etc/docker/daemon.json << END
 {
     "default-address-pools": [
         {
@@ -48,6 +45,13 @@ tee  ./daemon.json << END
     ]
 }
 END
+
+
+VERSION_STRING=5:24.0.6-1~ubuntu.22.04~jammy
+echo "# Installing Docker version="$VERSION_STRING
+sudo apt-get install docker-ce=$VERSION_STRING docker-ce-cli=$VERSION_STRING containerd.io docker-compose-plugin
+
+
 
 echo "# Adding group docker"
 sudo groupadd docker
