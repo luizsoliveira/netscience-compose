@@ -10,7 +10,7 @@ services:
       - ./app/admin:/app/admin
       - admin_node_modules_volume:/app/admin/node_modules
       - "./config/timezone:/etc/timezone:ro"
-    command: "npm run build"
+    # command: "npm run build"
     # ports:
     #   - 7000:7000
     # profiles:
