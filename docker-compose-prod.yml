@@ -23,7 +23,7 @@ services:
     volumes:
       - ./app/websocket:/app/
       - ws_node_modules_volume:/app/node_modules
-      - /var/netscience/tasks:/var/tasks
+      - /local-scratch/netscience/tasks:/var/tasks
       - "./config/timezone:/etc/timezone:ro"
     ports:
       - 7002:3000
