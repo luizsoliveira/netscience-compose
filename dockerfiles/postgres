@@ -1,0 +1,6 @@
+#docker file not used yet
+FROM postgres:14.1-alpine
+
+RUN apk add -U tzdata
+ENV TZ=America/Vancouver
+RUN ln -sf /usr/share/zoneinfo/America/Vancouver /etc/localtime
