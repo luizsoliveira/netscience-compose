@@ -52,6 +52,8 @@ services:
   
   postgres:
     image: postgres:14.1-alpine
+    # build:
+    #   dockerfile: dockerfiles/postgres
     ports:
       - "7432:5432"
     environment:
