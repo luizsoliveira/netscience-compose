@@ -10,9 +10,16 @@ services:
       - ./app/admin:/app/admin
       - admin_node_modules_volume:/app/admin/node_modules
       - "./config/timezone:/etc/timezone:ro"
-    tty: true
-    # command: "npm run build"
+    command: "npm run build"
+    # According to the line above, after the container's building process
+    # will be executed the application building process to generate
+    # the JS files that the NGINX container will access.
+    # When this CMD is completed, the container is halted, and it is not
+    # possible to access him anymore.
+    # When it is necessary to do some debugging or run this CMD manually,
+    # you can activate a dummy CMD, such as the following CMD, just to keep the container alive and enable access to him.
     # command: "tail -f /dev/null"
+    # Remember, in case of problem check the node, npm and vite versions used on dev and prod environments.
     # ports:
     #   - 7000:7000
     # profiles:
