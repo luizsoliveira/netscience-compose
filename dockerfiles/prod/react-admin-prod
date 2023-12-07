@@ -1,13 +1,15 @@
-FROM node:14-alpine AS production
+FROM node:21-alpine AS development
 # IMPORTANT: If changed to production it disable the dev dependencies install including vite
 # in this architecture 
-ENV NODE_ENV production
+ENV NODE_ENV development
 # Add a work directory
 WORKDIR /app/admin
 # Cache and Install dependencies
 COPY ./app/admin/package.json .
 # COPY ./app/admin/package-lock.json .
+# RUN npm ci --only=production
 RUN npm install
+RUN npm install vite
 # Copy app files
 # COPY . .
 # Expose port

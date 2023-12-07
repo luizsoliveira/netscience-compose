@@ -10,7 +10,9 @@ services:
       - ./app/admin:/app/admin
       - admin_node_modules_volume:/app/admin/node_modules
       - "./config/timezone:/etc/timezone:ro"
+    tty: true
     # command: "npm run build"
+    # command: "tail -f /dev/null"
     # ports:
     #   - 7000:7000
     # profiles:
@@ -23,7 +25,8 @@ services:
     volumes:
       - ./app/websocket:/app/
       - ws_node_modules_volume:/app/node_modules
-      - /local-scratch/netscience/tasks:/var/tasks
+      # - /local-scratch/netscience/tasks:/var/tasks
+      - /var/netscience/tasks:/var/tasks
       - "./config/timezone:/etc/timezone:ro"
     ports:
       - 7002:3000
