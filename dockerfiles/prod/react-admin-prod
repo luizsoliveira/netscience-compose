@@ -1,7 +1,7 @@
 FROM node:21-alpine AS development
 # IMPORTANT: If changed to production it disable 
 # the dev dependencies install including vite
-# in this architecture 
+# In this architecture 
 # Even in production environment will be used this container
 # as development mode.
 # Reason: This container is used just to do the building process.
@@ -22,3 +22,4 @@ RUN npm install vite
 # Expose port
 #EXPOSE 3000
 # Start the app
+# CMD npm run build
