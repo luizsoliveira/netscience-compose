@@ -107,6 +107,7 @@ services:
       - "./app/admin/dist:/app/admin"
       - "./config/nginx/production.conf.template:/etc/nginx/templates/default.conf.template"
       - "./config/timezone:/etc/timezone:ro"
+      - /var/netscience/tasks:/var/tasks
     environment:
       - NGINX_HOST=localhost
       #- NGINX_HOST=ensc-cnl-15.engineering.sfu.ca
